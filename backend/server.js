@@ -7,7 +7,7 @@ const http = require('http');
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
+app.use(cors());  // Habilitar CORS para todas las rutas, este es importantisimo
 
 // Proxy para obtener trades de una cripto
 app.get('/api/trades/:symbol', async (req, res) => {
@@ -37,7 +37,7 @@ app.get('/api/ticker/:symbol', async (req, res) => {
   }
 });
 
-// Proxy para obtener la lista de criptos
+// Proxy para obtener la lista de criptos (todos los símbolos)
 app.get('/api/symbols', async (req, res) => {
   try {
     const response = await axios.get('https://api.gemini.com/v1/symbols');
@@ -79,3 +79,4 @@ server.listen(PORT, () => {
   console.log(`Proxy Gemini escuchando en http://localhost:${PORT}`);
   console.log(`WebSocket proxy activo en ws://localhost:${PORT}/ws/marketdata/:symbol?top_of_book=true`);
 }); 
+

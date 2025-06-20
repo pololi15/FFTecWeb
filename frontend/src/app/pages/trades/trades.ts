@@ -44,7 +44,8 @@ export class Trades implements OnInit, OnDestroy{
   loadSymbols() {
     this.geminiService.getCryptos().subscribe({
       next: (symbols) => {
-        this.availableSymbols = symbols.slice(0, 20); // Mostramos las 20 primeras
+        this.availableSymbols = symbols;
+                            // = symbols.slice(0, 20); // Mostramos las 20 primeras
         this.loadingSymbols = false;
       },
       error: (err) => {

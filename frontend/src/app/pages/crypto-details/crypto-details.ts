@@ -43,4 +43,9 @@ export class CryptoDetails implements OnInit{
       }
     });
   }
+
+  trackByTrade(index: number, trade: any): any {
+  return trade.timestamp || index;
+}//revisar si el trade tiene un timestamp único, si no, usar el índice como fallback
+  //Es intereante,revisarlo mas a profundidad despues
 }

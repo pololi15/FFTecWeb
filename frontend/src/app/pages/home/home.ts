@@ -20,7 +20,8 @@ export class Home implements OnInit{
   ngOnInit(): void {
     this.geminiService.getCryptos().subscribe({
       next: (data) => {
-        this.cryptos = data.slice(0, 10); // Mostrar las 10 primeras criptos
+        this.cryptos = data;
+                    //= data.slice(0, 10); // Mostrar las 10 primeras criptos
         this.loading = false;
       },
       error: (err) => {

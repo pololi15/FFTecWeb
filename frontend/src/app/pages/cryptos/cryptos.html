@@ -1,20 +1,63 @@
-<h2>Lista de Criptomonedas</h2>
 
-<div *ngIf="loading">Cargando criptomonedas...</div>
+<div class="container">
+  <div class="header">
+    <h2>Mercado de Criptomonedas</h2>
+    <p>Precios en tiempo real de las principales criptomonedas</p>
+  </div>
+  
+  <div class="content">
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Cargando criptomonedas...</div>
+    </div>
 
-<table *ngIf="!loading">
-  <thead>
-    <tr>
-      <th>Criptomoneda</th>
-      <th>Precio Actual (USD)</th>
-      <th>Detalles</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let crypto of cryptos">
-      <td>{{ crypto.symbol.toUpperCase() }}</td>
-      <td>${{ crypto.price }}</td>
-      <td><a [routerLink]="['/cryptos', crypto.symbol]">Ver Detalles</a></td>
-    </tr>
-  </tbody>
-</table>
+    <!-- Error State -->
+    <div class="error-container" *ngIf="error && !loading">
+      <div class="error-icon">⚠️</div>
+      <h3>Error al cargar los datos</h3>
+      <p>Por favor, intenta nuevamente más tarde</p>
+    </div>
+
+    <!-- Success State -->
+    <div *ngIf="!loading && !error && cryptos.length > 0">
+      <!-- Stats Cards -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-number">{{ cryptos.length }}</div>
+          <div class="stat-label">Criptomonedas</div>
+        </div>
+
+      <!-- Table -->
+      <div class="table-container">
+        <table class="crypto-table">
+          <thead>
+            <tr>
+              <th>Criptomoneda</th>
+              <th>Precio Actual (USD)</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let crypto of cryptos">
+              <td class="crypto-symbol">{{ crypto.symbol.toUpperCase() }}</td>
+              <td class="crypto-price">${{ crypto.price.toFixed(4) }}</td>
+              <td>
+                <a [routerLink]="['/cryptos', crypto.symbol]" class="details-link">
+                  Ver Detalles
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="error-container" *ngIf="!loading && !error && cryptos.length === 0">
+      <div class="error-icon">📊</div>
+      <h3>No se encontraron criptomonedas</h3>
+      <p>No hay datos disponibles en este momento</p>
+    </div>
+  </div>
+</div>

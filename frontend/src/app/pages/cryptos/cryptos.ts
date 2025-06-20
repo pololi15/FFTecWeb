@@ -11,17 +11,17 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './cryptos.scss'
 })
 export class Cryptos implements OnInit{
-cryptos: { symbol: string, price: number }[] = [];
+  cryptos: { symbol: string, price: number }[] = [];
   loading: boolean = true;
+  error: boolean = false;
 
   constructor(private geminiService: Gemini) {}
 
   ngOnInit(): void {
     this.geminiService.getCryptos().subscribe({
       next: (symbols) => {
-        // Tomaremos las primeras 15 criptos para no saturar llamadas
-        const selectedSymbols = symbols.slice(0, 15);
-
+        const selectedSymbols = symbols  //todas las criptomonedas
+                                //= symbols.slice(0, 30); // 15 criptomonedas
         selectedSymbols.forEach((symbol: string) => {
           this.geminiService.getTicker(symbol).subscribe({
             next: (ticker) => {
@@ -36,6 +36,7 @@ cryptos: { symbol: string, price: number }[] = [];
       error: (err) => {
         console.error('Error al obtener criptomonedas:', err);
         this.loading = false;
+        this.error = true;
       }
     });
   }
