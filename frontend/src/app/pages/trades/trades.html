@@ -1,0 +1,29 @@
+<h2>Trades en Tiempo Real ({{ symbol.toUpperCase() }})</h2>
+
+<label for="symbolSelect">Selecciona una criptomoneda:</label>
+<select id="symbolSelect" [(ngModel)]="symbol" (ngModelChange)="onSymbolChange($event)">
+  <option *ngFor="let s of availableSymbols" [value]="s">
+    {{ s.toUpperCase() }}
+  </option>
+</select>
+
+<table>
+  <thead>
+    <tr>
+      <th>Precio</th>
+      <th>Cantidad</th>
+      <th>Tipo</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let trade of trades" [@highlight]="trade.tid === highlightedTradeId ? 'highlighted' : 'normal'">
+    <td>${{ trade.price }}</td>
+    <td>{{ trade.amount }}</td>
+    <td [style.color]="trade.side === 'buy' ? 'green' : 'red'">{{ trade.side }}</td>
+    <td>{{ trade.timestamp * 1000 | date: 'short' }}</td>
+  </tr>
+</tbody>
+</table>
+
+

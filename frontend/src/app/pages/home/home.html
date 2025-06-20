@@ -1,0 +1,9 @@
+<h1>Bienvenido al Crypto Tracker</h1>
+
+<div *ngIf="loading">Cargando criptomonedas...</div>
+
+<ul *ngIf="!loading">
+  <li *ngFor="let crypto of cryptos">
+    <a [routerLink]="['/cryptos', crypto]">{{ crypto.toUpperCase() }}</a>
+  </li>
+</ul>

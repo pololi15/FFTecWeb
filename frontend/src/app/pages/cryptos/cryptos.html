@@ -1,0 +1,20 @@
+<h2>Lista de Criptomonedas</h2>
+
+<div *ngIf="loading">Cargando criptomonedas...</div>
+
+<table *ngIf="!loading">
+  <thead>
+    <tr>
+      <th>Criptomoneda</th>
+      <th>Precio Actual (USD)</th>
+      <th>Detalles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let crypto of cryptos">
+      <td>{{ crypto.symbol.toUpperCase() }}</td>
+      <td>${{ crypto.price }}</td>
+      <td><a [routerLink]="['/cryptos', crypto.symbol]">Ver Detalles</a></td>
+    </tr>
+  </tbody>
+</table>

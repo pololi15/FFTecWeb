@@ -1,0 +1,25 @@
+<h2>Detalles de {{ symbol.toUpperCase() }}</h2>
+
+<div *ngIf="loading">Cargando información...</div>
+
+<div *ngIf="!loading">
+  <h3>Precio actual: ${{ price }}</h3>
+
+  <h4>Últimos Trades:</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let trade of trades">
+        <td>${{ trade.price }}</td>
+        <td>{{ trade.amount }}</td>
+        <td>{{ trade.timestamp * 1000 | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
